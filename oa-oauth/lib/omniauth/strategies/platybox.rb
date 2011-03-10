@@ -17,20 +17,15 @@ module OmniAuth
       # @option options [Boolean, true] :sign_in When true, use the "Sign in with Platybox" flow instead of the authorization flow.
       def initialize(app, consumer_key = nil, consumer_secret = nil, options = {}, &block)
         client_options = {
-          :site => "http://api.platybox.com",          
+          :site => "http://api.platybox.com",
+          #:site => "http://localhost:8080",
           :authorize_path => '/1/authenticate',
           :access_token_path => '/1/access_token',
           :request_token_path => '/1/request_token'
         }
         super(app, :platybox, consumer_key, consumer_secret, client_options, options)
       end
-           
-      
-      #def user_data
-      #  @data ||= MultiJson.decode(@access_token.get('/1/users/show').body)
-      #end
-      
-      
+                
       def auth_hash
         ui = user_data
         OmniAuth::Utils.deep_merge(super, {        
@@ -41,7 +36,7 @@ module OmniAuth
       end
             
       def user_data
-        user_hash = self.user_hash[0]["user"]
+        user_hash = self.user_hash["user"]
         {
           'uid' => user_hash['id'],
           'nickname' => user_hash['username'],          
