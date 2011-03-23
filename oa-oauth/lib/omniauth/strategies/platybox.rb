@@ -18,7 +18,6 @@ module OmniAuth
       def initialize(app, consumer_key = nil, consumer_secret = nil, options = {}, &block)
         client_options = {
           :site => "http://api.platybox.com",
-          #:site => "http://localhost:8080",
           :authorize_path => '/1/authenticate',
           :access_token_path => '/1/access_token',
           :request_token_path => '/1/request_token'
